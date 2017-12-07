@@ -3,6 +3,7 @@
  * Copyright BuenPlan, 2017.
  */
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 
 import axios from '../../../axios-orders';
 import classes from './ContactData.css';
@@ -67,4 +68,10 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return {
+        price: state.totalPrice
+    }
+};
+
+export default connect(mapStateToProps)(ContactData);
