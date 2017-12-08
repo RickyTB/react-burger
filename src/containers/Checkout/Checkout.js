@@ -3,7 +3,7 @@
  * Copyright BuenPlan, 2017.
  */
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
@@ -20,22 +20,23 @@ class Checkout extends Component {
     };
 
     render() {
-        return (
+        return this.props.ingredients && !this.props.purchased ? (
             <div>
                 <CheckoutSummary
                     ingredients={this.props.ingredients}
                     checkoutCanceled={this.checkoutCanceled}
                     checkoutContinued={this.checkoutContinued}/>
                 <Route path={this.props.match.path + '/contact-data'}
-                       component={ContactData} />
+                       component={ContactData}/>
             </div>
-        );
+        ) : <Redirect to="/"/>;
     }
 }
 
-const mapStateToProps = ({ingredients}) => {
+const mapStateToProps = ({burgerBuilder: {ingredients}, order: {purchased}}) => {
     return {
-        ingredients
+        ingredients,
+        purchased
     };
 };
 
