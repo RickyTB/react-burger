@@ -37,9 +37,10 @@ class ContactData extends Component {
                 },
                 email: 'test@test.com'
             },
-            deliveryMethod: 'fastest'
+            deliveryMethod: 'fastest',
+            userId: this.props.userId
         };
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order, this.props.token);
     };
 
     render() {
@@ -60,11 +61,13 @@ class ContactData extends Component {
     }
 }
 
-const mapStateToProps = ({burgerBuilder: {ingredients, totalPrice}, order: {loading}}) => {
+const mapStateToProps = ({burgerBuilder: {ingredients, totalPrice}, order: {loading}, auth: {token, userId}}) => {
     return {
         ingredients,
         price: totalPrice,
-        loading
+        loading,
+        token,
+        userId
     }
 };
 
